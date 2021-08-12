@@ -12,27 +12,15 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));  
-const startParse = () =>{
-    fs.readFile('first_resp.xml', (err, data)=>{
-        if(err) {
-            return res.send({message:err});
-        } else {
-            jsonfile = JSON.parse(parser.toJson(data,{reversible: true}));
-        }
-    
-        //console.log(util.inspect(prs, false, null, true))
-        // const obj = parser.toJson(data, { object: true });
-        // console.log(xml2js.parseString(data))
-        // let objParse = JSON.stringify(obj)
-        // console.log(objParse)
-        // console.log(JSON.parse(objParse))
-        // let body = (obj['S:Envelope']['S:Body']['ns2:sendMessage'].request)
-        //console.log(util.inspect(body, false, null, true))
-
+const startParse = (url) =>{
+    fs.readFile(url, (err, data)=>{
+      const obj = parser.toJson(data, { object: true }); //с буффера в json
+        let body = (obj['S:Envelope']['S:Body']['ns2:sendMessage'].request) // объект body
+        console.log(util.inspect(body, false, null, true)) // утилита что бы видить весь обьект в консоли
     })
     
 }
-startParse()
+startParse('first_resp.xml')
 app.use('/api', api)
 const start = async () => {
     try{
