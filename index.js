@@ -20,7 +20,7 @@ const startParse = (url) =>{
     })
     
 }
-startParse('first_resp.xml')
+startParse('first_resp.xml') 
 app.use('/api', api)
 const start = async () => {
     try{
